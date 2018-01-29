@@ -27,8 +27,8 @@
       <p> Traditional blood glucose measurement methods require drawing blood samples by trained personnel and have to prevent the potential transimission of infectious diseases. The procedure is painful, risky, and time-consuming, so here we propose a non-invasive glucose measurement method that can accomplish painless, risk-free, low-cost and frequent testing of glucose, which is an ideal method for self-monitoring of glucose.</p>
       <p> In this work, we use both photoplethysmogram (PPG) and Electrocardiogram (ECG) signals to predict blood glucose. These two kinds of signals are sampled in frequency of 1000Hz and length of 60 seconds:
       <ol class="task-list">
-       <li type='1'> (4 channels) PPG signals are obtained from transmissive absorption at two-handed finger tips, including radiation (R) and infrared radiation (IR) channels.
-       <li type='1'> (1 channel) ECG signal is from single lead connected to the human chest.
+       <li type='1'> PPG signals are obtained from transmissive absorption at two-handed finger tips, including radiation (R) and infrared radiation (IR) channels, resulting in 4 channels.
+       <li type='1'> ECG signal is from single lead connected to the human chest, resulting in 1 channel.
       </ol>
       </p> 
       <p> We collect 1752 samples from 876 individuals and measure their fasting blood glucose as our prediction targets. Total 876 individuals are split into training set (80%) and testing set (20%).
@@ -40,36 +40,38 @@
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>A. Signal Filtering</h3>
       <p> The PPG waveform consists of <strong>direct current (DC)</strong> and <strong>alternating current (AC)</strong> components. The AC component shows changes in the blood volume that occurs between the systolic and diastolic phases of the cardiac cycle; the fundamental frequency of the AC component depends on the heart rate and is superimposed onto the DC component. Note that the DC component changes slowly with respiration.
       </p>
-      <p> To filter out the DC component in PPG signals, every PPG signal is passed through a high-pass filter with 30Hz cut-off frequency, and obtains AC-only signal. After adding AC-only PPG signls, there are total 9 signals.
+      <p> To filter out the DC component in PPG signals, every PPG signal is passed through a high-pass filter with 30Hz cut-off frequency to obtain AC-only signal. After adding four AC-only PPG signls, there are total nine signals.
       </p>
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>B. Signal Processing</h3>
-      <p> <strong>Downsampling</strong>: to reduce the dimension of model input, every signal is downsampled from 1000Hz to 200Hz or 50Hz by <a href="https://docs.scipy.org/doc/scipy/reference/signal.html">scipy.signal</a>. <br>
-      <strong>Normalization</strong>: every signal is independently normalized by robust scaler in <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html">sklearn.preprocessing</a>.
+      <p>Downsampling: to reduce the dimension of model input, every signal is downsampled from 1000Hz to 200Hz or 50Hz by <a href="https://docs.scipy.org/doc/scipy/reference/signal.html">scipy.signal</a>. <br>
+      Normalization: every signal is independently normalized by <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html">sklearn.preprocessing.RobustScaler</a>.
       </p>
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>C. Data Augmentation</h3>
-      <p> Originally, a signal is recorded for 60 seconds. Here we randomly crop into five thirty-second signal segments as a kind of augmentation. We split 
+      <p> Originally, a signal is recorded for 60 seconds. Here we randomly crop into five thirty-second signal segments as a kind of augmentation.
       </p>
-      <p> All in all, our input signals have 9 channels: 4 PPG(DC+AC), 4 PPG(AC-only) and 1 ECG signal in frequency of 200Hz or 50Hz; the length of time is 30 seconds.
+      <blockquote>
+      <p> All in all, our input signals have 9 channels: 4 PPG (DC+AC), 4 PPG (AC-only) and 1 ECG signal in frequency of 200Hz or 50Hz; the time span of every signal is 30 seconds.
       </p>
+      </blockquote>
 
       <h2><a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>III. Model Architecture</h2>
+      <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>A. 22 layers of CNN</h3>
       <blockquote>
       <p>22 layers of CNN</p>
       </blockquote>
-      <p>
-        
-      </p>
+
+      <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>B. Local CNN for Multi-scale</h3>
+      
        <blockquote>
       <p>Local CNN for Multi-scale</p>
       </blockquote>
-      <p> 
-      </p>
+
 
       <h2><a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>IV. Experiment Results</h2>
 
-      <p> Four evaluation metrics: (1) mean absolute error, (2) Pearson's correlation coefficient, (3) Clarke error grid and (4) Parke error grid.
+      <p> Four evaluation metrics: (1) mean absolute error, (2) Pearson's correlation coefficient, (3) Clarke error grid and (4) Parke error grid.<br>
 
-      <iframe src="//www.slideshare.net/slideshow/embed_code/key/IhrOFdELmfYhxS" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ChunMingChang2/noninvasive-blood-glucose-measurement-using-ppg-and-ecg-signals" title="Non-invasive blood glucose measurement using PPG and ECG signals" target="_blank">Non-invasive blood glucose measurement using PPG and ECG signals</a> </strong> from <strong><a href="https://www.slideshare.net/ChunMingChang2" target="_blank">Chun-Ming Chang</a></strong> </div>
+      <center><iframe src="//www.slideshare.net/slideshow/embed_code/key/IhrOFdELmfYhxS" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ChunMingChang2/noninvasive-blood-glucose-measurement-using-ppg-and-ecg-signals" title="Non-invasive blood glucose measurement using PPG and ECG signals" target="_blank">Non-invasive blood glucose measurement using PPG and ECG signals</a> </strong> from <strong><a href="https://www.slideshare.net/ChunMingChang2" target="_blank">Chun-Ming Chang</a></strong> </div></center>
         
       </p>
       <h2><a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>V. Conclusions</h2>

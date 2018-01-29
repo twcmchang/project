@@ -59,6 +59,8 @@
       <p>22 layers of CNN</p>
       </blockquote>
 
+      <p> Besides, we regard the flattened CNN output as a signal embedding, and use the learned embeddings as the input to another machine learning model, XGBoost, to predict blood glucose.</p>
+
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>B. Local CNN for Multi-scale</h3>
       
        <blockquote>
@@ -69,10 +71,40 @@
       <h2><a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>IV. Experiment Results</h2>
 
       <p> Four evaluation metrics: (1) mean absolute error, (2) Pearson's correlation coefficient, (3) Clarke error grid and (4) Parke error grid.<br>
-
-      <center><iframe src="//www.slideshare.net/slideshow/embed_code/key/IhrOFdELmfYhxS" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ChunMingChang2/noninvasive-blood-glucose-measurement-using-ppg-and-ecg-signals" title="Non-invasive blood glucose measurement using PPG and ECG signals" target="_blank">Non-invasive blood glucose measurement using PPG and ECG signals</a> </strong> from <strong><a href="https://www.slideshare.net/ChunMingChang2" target="_blank">Chun-Ming Chang</a></strong> </div></center>
-        
+      Clarke and Parke error grids separates reference value and predicted value into five zones, and the interpretations of each zone are as follow:
+      <ol class="task-list">
+        <li type="A">: Clinically correct decisions </li>
+        <li type="A">: Clinically uncritical decisions </li>
+        <li type="A">: Overcorrection </li>
+        <li type="A">: Skip a necessary correction </li>
+        <li type="A">: Perform a wrong correction </li>
+      </ol>
+      <blockquote>
+      <p>In Parke error grid, the result of the 22 layers of CNN achieves 91.9% in zone-A and 8.1% in zone-B. However, the result of XGBoost with signal embeddings improves to 93.5% in zone-A and the remaining in zone-B.</p>
+      </blockquote>
+      <p>
+      <img src="images/cnn_200.png" alt="" data-canonical-src="images/cnn_200.png" style="max-width:49%;">
+      <img src="images/cnn_xgb_200.png" alt="" data-canonical-src="images/cnn_xgb_200.png" style="max-width:49%;">
       </p>
+      
+
+      <blockquote>
+      <p> Here we show the result of the proposed multi-scale CNN. Unfornately, the multi-scale CNN do not outperform the 22 layers of CNN, dropping by a small margin of 0.3% in zone-A of Parke error grid. Note that </p>
+      </blockquote>
+      <p>
+      <img src="images/mcnn.png" alt="" data-canonical-src="images/mcnn.png" style="max-width:49%;">
+      <img src="images/mcnn_xgb.png" alt="" data-canonical-src="images/mcnn_xgb.png" style="max-width:49%;">
+      </p>
+
+      <blockquote>
+        <p> The summary of all experiments is in the following.
+      </blockquote>
+      <p>
+      <img src="images/summary.png" alt="" data-canonical-src="images/summary.png" style="max-width:49%;">
+      </p>
+      
+<!--       <center><iframe src="//www.slideshare.net/slideshow/embed_code/key/IhrOFdELmfYhxS" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ChunMingChang2/noninvasive-blood-glucose-measurement-using-ppg-and-ecg-signals" title="Non-invasive blood glucose measurement using PPG and ECG signals" target="_blank">Non-invasive blood glucose measurement using PPG and ECG signals</a> </strong> from <strong><a href="https://www.slideshare.net/ChunMingChang2" target="_blank">Chun-Ming Chang</a></strong> </div></center> -->
+        
       <h2><a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>V. Conclusions</h2>
       <ol class="task-list">
       <li> Developed a <strong>non-invasive</strong> blood glucose measurement method by using PPG and ECG signals instead of blood samples

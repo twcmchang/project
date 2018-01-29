@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Chun-Ming Chang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="description" content="Project - Chun Ming Chang">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/cayman.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Non-invasive Blood Glucose Measurement using PPG and ECG Signals</h1>
+      <h2 class="project-tagline">Jointly work with Research Center for Applied Science, Academia Sinica</h2>
+      <a href="https://github.com/twcmchang/MLDS_final_2017" class="btn">View on GitHub</a>
+      <a href="https://www.slideshare.net/ChunMingChang2/noninvasive-blood-glucose-measurement-using-ppg-and-ecg-signals" class="btn">View on SlideShare</a>
+      <a href="https://twcmchang.github.io/online-cv/" class="btn">Download Slide</a>
+    </section>
+
+    <iframe src="//www.slideshare.net/slideshow/embed_code/key/IhrOFdELmfYhxS" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ChunMingChang2/noninvasive-blood-glucose-measurement-using-ppg-and-ecg-signals" title="Non-invasive blood glucose measurement using PPG and ECG signals" target="_blank">Non-invasive blood glucose measurement using PPG and ECG signals</a> </strong> from <strong><a href="https://www.slideshare.net/ChunMingChang2" target="_blank">Chun-Ming Chang</a></strong> </div>
+
+    <section class="main-content">
+      <h2>
+      <a id="user-content-header-2" class="anchor" href="#header-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>I. Motivation</h2>
+
+      <p> Traditional blood glucose measurement methods require drawing blood samples by trained personnel and have to prevent the potential transimission of infectious diseases. The procedure is painful, risky, and time-consuming, so here we propose a non-invasive glucose measurement method that can accomplish painless, risk-free, low-cost and frequent testing of glucose, which is an ideal method for self-monitoring of glucose.</p>
+      <p> In this work, we use both photoplethysmogram (PPG) and Electrocardiogram (ECG) signals, which can be obtained non-invasively, to predict blood glucose. These two kinds of signals are sampled as follow:
+      <ol class="task-list">
+       <li type='1'> PPG signals are obtained from transmissive absorption at two-handed finger tips, including radiation (R) and infrared radiation (IR) channels => 4 channels
+       <li type='1'> ECG signal is from single lead connected to the human chest => 1 channel<br>
+       sampling frequenct: 1000Hz, sampling duration: 60 seconds
+      </ol>
+      </p> 
+      <p> We collect 1752 signal samples from 876 individuals, two samples per individual, and measure their fasting blood glucose as our prediction targets. Total 876 individuals are split: 80% for training and 20% for testing.
+      </p>
+
+      <h2>
+      <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>II. Preprocessing</h2>
+
+      <h3>
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>A. Signal Filtering</h3>
+      <p> The PPG waveform consists of direct current (DC) and alternating current (AC) components. The DC component of the PPG waveform depends on the structure of the tissue and the average blood volume of both arterial and venous blood, and thus the DC component changes slowly with respiration. The AC component shows changes in the blood volume that occurs between the systolic and diastolic phases of the cardiac cycle; the fundamental frequency of the AC component depends on the heart rate and is superimposed onto the DC component.
+      </p>
+      <p> To filter out the DC component in PPG signals, we pass every PPG signals through a high-pass filter with 30Hz cut-off frequency, and obtain AC-only PPG signals. After adding AC-only PPG signls, there are 9 signals in total.
+      </p>
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>B. Signal Processing</h3>
+      <p> <strong>Downsampling</strong>: to reduce the dimension of model input, every signal is downsampled from 1000Hz to 200Hz or 50Hz by scipy.signal module. <br>
+      <strong>Normalization</strong>: every signal is independently normalized by robust scaler in sklearn.preprocessing module.
+      </p>
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>C. Data Augmentation</h3>
+      <p> Originally, a signal is recorded for 60 seconds. Here we randomly crop into five thirty-second signal segments as a kind of augmentation. We split 
+      </p>
+      <p> All in all, our input signals have 9 channels: 4 PPG(DC+AC), 4 PPG(AC-only) and 1 ECG signal in frequency of 200Hz or 50Hz; the length of time is 30 seconds.
+      </p>
+
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>III. Model Architecture</h3>
+      <blockquote>
+      <p>22 layers of CNN</p>
+      </blockquote>
+      <p>
+        
+      </p>
+       <blockquote>
+      <p>Local CNN for Multi-scale</p>
+      </blockquote>
+      <p> 
+      </p>
+
+
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>IV. Experiment Results</h3>
+      <p> Four evaluation metrics: (1) mean absolute error, (2) Pearson's correlation coefficient, (3) Clarke error grid and (4) Parke error grid.
+        
+      </p>
+
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>V. Conclusions</h3>
+      <ol class="task-list">
+      <li> Developed a <strong>non-invasive</strong> blood glucose measurement method by using PPG and ECG signals instead of blood samples
+      </li>
+      <br>
+      <li> Proposed a CNN architecture to process raw PPG and ECG signals, and this <strong>CNN model achieves 91.9% of zone A</strong> (others in B)
+      </li>
+      <br>
+      <li> Utilized the flattened output of CNN as the input to XGBoost, and the <strong>combined model achieves 93.5% of zone A</strong> (others in B)
+      </li>
+      <li> We tried to aggregate signals in different frequencies, but the proposed <strong>multi-scale</strong> CNN model cannot outperform the above models
+      </li>
+      </ol>
+  
+      <a id="user-content-header-2" class="anchor" href="#header-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+      <ol>
+      <li>Tamura, Toshiyo, et al. "Wearable photoplethysmographic sensors—past and present." Electronics 3.2 (2014): 282-302.</li>
+
+     
+
+      <footer class="site-footer">
+        <span class="site-footer-owner">© 2018 Chun Ming Chang. This theme is designed by <a href="https://github.com/jasonlong">jasonlong</a>.</span>
+      </footer>
+
+    </section>
+
+  </body>
+</html>

@@ -37,15 +37,15 @@
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>II. Preprocessing</h2>
 
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>A. Signal Filtering</h3>
-      <p> The PPG waveform consists of <strong>direct current (DC)</strong> and <strong>alternating current (AC)</strong> components. The AC component shows changes in the blood volume that occurs between the systolic and diastolic phases of the cardiac cycle; the fundamental frequency of the AC component depends on the heart rate and is superimposed onto the DC component. Note that the DC component changes slowly with respiration.
+      <p> The PPG waveform consists of <strong>direct current (DC)</strong> and <strong>alternating current (AC)</strong> components. The fundamental frequency of the AC component depends on the heart rate and is superimposed onto the DC component. Therefore, every PPG signal is passed through a high-pass filter with 30Hz cut-off frequency to obtain AC-only signal. After adding four <strong>AC-only PPG signls</strong>, there are total nine signals.
       </p>
-      <p> To filter out the DC component in PPG signals, every PPG signal is passed through a high-pass filter with 30Hz cut-off frequency to obtain AC-only signal. After adding four AC-only PPG signls, there are total nine signals.
-      </p>
+
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>B. Signal Processing</h3>
-      <p>Downsampling: to reduce the dimension of model input, every signal is downsampled from 1000Hz to 200Hz or 50Hz by <a href="https://docs.scipy.org/doc/scipy/reference/signal.html">scipy.signal</a>. <br>
-      Normalization: every signal is independently normalized by <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html">sklearn.preprocessing.RobustScaler</a>.
+      <p><strong>Downsampling</strong> : to reduce the dimension of model input, every signal is downsampled from 1000Hz to 200Hz or 50Hz by <a href="https://docs.scipy.org/doc/scipy/reference/signal.html">scipy.signal</a>. <br>
+      <strong>Normalization</strong>: every signal is independently normalized by <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html">sklearn.preprocessing.RobustScaler</a>.
       </p>
-      <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>C. Data Augmentation</h3>
+
+      <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>C. Signal Segmentation as Augmentation</h3>
       <p> Originally, a signal is recorded for 60 seconds. Here we randomly crop into five thirty-second signal segments as a kind of augmentation.
       </p>
       <blockquote>
@@ -59,7 +59,7 @@
       <p>22 layers of CNN</p>
       </blockquote>
 
-      <p> Besides, we regard the flattened CNN output as a signal embedding, and use the learned embeddings as the input to another machine learning model, XGBoost, to predict blood glucose.</p>
+      <p> Besides, we regard the <strong>flattened CNN output as a signal embedding</strong>, and use the learned embeddings as the input to another machine learning model, XGBoost, to predict blood glucose.</p>
 
       <h3><a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>B. Local CNN for Multi-scale</h3>
       

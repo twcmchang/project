@@ -73,13 +73,13 @@ a {
   margin-bottom: 0.1rem; }
   @media screen and (min-width: 56em) {
     .project-name {
-      font-size: 3rem; } }
+      font-size: 2.25rem; } }
   @media screen and (min-width: 42em) and (max-width: 56em) {
     .project-name {
-      font-size: 2rem; } }
+      font-size: 1.5rem; } }
   @media screen and (max-width: 42em) {
     .project-name {
-      font-size: 1.5rem; } }
+      font-size: 1.25rem; } }
 
 .project-tagline {
   margin-bottom: 2rem;
@@ -104,16 +104,16 @@ a {
   @media screen and (min-width: 56em) {
     .main-content {
       max-width: 56rem;
-      padding: 2rem 8rem;
+      padding: 2rem 6rem;
       margin: 0 auto;
       font-size: 1.1rem; } }
   @media screen and (min-width: 42em) and (max-width: 56em) {
     .main-content {
-      padding: 2rem 6rem;
+      padding: 2rem 4rem;
       font-size: 1.1rem; } }
   @media screen and (max-width: 42em) {
     .main-content {
-      padding: 2rem 3rem;
+      padding: 2rem 1rem;
       font-size: 1rem; } }
   .main-content img {
     max-width: 100%; }

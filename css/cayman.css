@@ -95,16 +95,17 @@ a {
 
 .main-content {
   text-align: justify;
+  background: #ffffff;
   word-wrap: break-word; }
   .main-content :first-child {
     margin-top: 0; }
-  @media screen and (min-width: 64em) {
+  @media screen and (min-width: 56em) {
     .main-content {
-      max-width: 64rem;
+      max-width: 56rem;
       padding: 2rem 8rem;
       margin: 0 auto;
       font-size: 1.1rem; } }
-  @media screen and (min-width: 42em) and (max-width: 64em) {
+  @media screen and (min-width: 42em) and (max-width: 56em) {
     .main-content {
       padding: 2rem 6rem;
       font-size: 1.1rem; } }
